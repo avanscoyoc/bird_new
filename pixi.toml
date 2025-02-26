@@ -17,7 +17,11 @@ tqdm = "*"
 timm = "*"
 torchaudio = "*"
 tensorflow = "*"
+pip = ">=25.0.1,<26"
+scikit-learn = ">=1.6.1,<2"
+libgl = ">=1.7.0,<2"
+glib = ">=2.82.2,<3"
 
-[pypi-dependencies]
-opensoundscape = "*"
+[pypi-dependencies] 
 tensorflow_hub = "*"
+opensoundscape = "*"
