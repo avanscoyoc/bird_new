@@ -1,22 +1,29 @@
-#/bin/bash
+#!/bin/bash
 
-Check if input data directory exists
+# Ensure unzip is installed
+if ! command -v unzip &> /dev/null; then
+    echo "Installing unzip..."
+    sudo apt update && sudo apt install -y unzip
+fi
 
+# Check if the directory exists
 if [ ! -d "/workspaces/bird_new/data" ]; then
-
-    # Create input data directory
-
     mkdir -p /workspaces/bird_new/data
+fi
 
-    # Download the data, shared as public links from Google Cloud Storage Bucket
-
+# Download data if not already present
+if [ ! -f "/workspaces/bird_new/data/non-avian_ML.zip" ]; then
     echo "Downloading input data..."
+    curl -L -o /workspaces/bird_new/data/non-avian_ML.zip "https://storage.googleapis.com/dse-staff-public/non-avian_ML.zip"
+fi
 
-    wget -O /workspaces/bird_new/data/non-avian_ML.zip https://storage.cloud.google.com/dse-staff/audio/non-avian_ML.zip   
-    
-    # Unzip the downloaded file
-    unzip /workspaces/bird_new/data/non-avian_ML.zip -d /workspaces/bird_new/data/
-    
-    # Remove the zip file after extraction
+# Verify download before unzipping
+if [ -f "/workspaces/bird_new/data/non-avian_ML.zip" ]; then
+    echo "Unzipping data..."
+    unzip -o /workspaces/bird_new/data/non-avian_ML.zip -d /workspaces/bird_new/data/
     rm /workspaces/bird_new/data/non-avian_ML.zip
+    echo "Data extraction complete!"
+else
+    echo "Download failed. File not found!"
+    exit 1
 fi
