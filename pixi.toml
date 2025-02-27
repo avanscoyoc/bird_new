@@ -12,6 +12,9 @@ version = "0.1.0"
 python = "3.10"
 libgl = "*"
 glib = "*"
+ipykernel = ">=6.29.5,<7"
+jupyterlab = ">=4.3.5,<5"
+jupyter = ">=1.1.1,<2"
 
 [pypi-dependencies] 
 tensorflow_hub = "*"
